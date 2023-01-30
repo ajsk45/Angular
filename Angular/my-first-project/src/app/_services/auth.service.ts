@@ -51,7 +51,7 @@ export class AuthService {
  
   detail(){
     let token = sessionStorage.getItem('token');
-    return this.htttp.post<{users:Array<{localID:string,displayName:string}>}>(
+    return this.htttp.post<{users:Array<{localId:string,displayName:string}>}>(
       'https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=AIzaSyDmvGCvVizdHDfYbYqDdRgZJgxmPmJN9fs',
       {idToken:token}
     );

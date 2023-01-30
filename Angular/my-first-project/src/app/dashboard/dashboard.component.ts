@@ -16,7 +16,8 @@ export class DashboardComponent implements OnInit {
       //call user details
       this.auth.detail().subscribe({
         next:data=>{
-          this.user.localID = data.users[0].localID;
+          console.log(data)
+          this.user.localID = data.users[0].localId;
           this.user.displayName = data.users[0].displayName;
         
         }
