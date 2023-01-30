@@ -23,6 +23,12 @@ export class AuthService {
     }
 
   } 
+  canAuthenticate(){
+    if(this.isAuthenticated()){
+      //redirect dashboard
+      this.router.navigate(['/dashboard']);
+    }
+  }
   register(name:string,email:string,password:string){
     //send data to register api  
     return this.htttp
@@ -42,4 +48,15 @@ export class AuthService {
       {email,password}
     );
   }
+ 
+  detail(){
+    let token = sessionStorage.getItem('token');
+    return this.htttp.post<{users:Array<{localID:string,displayName:string}>}>(
+      'https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=AIzaSyDmvGCvVizdHDfYbYqDdRgZJgxmPmJN9fs',
+      {idToken:token}
+    );
+  }
+removeToken(){
+  sessionStorage.removeItem('token');
+}
 }

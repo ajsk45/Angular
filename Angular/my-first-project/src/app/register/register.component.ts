@@ -10,7 +10,7 @@ export class RegisterComponent implements OnInit {
  constructor(private auth:AuthService) { }
 
  ngOnInit(): void{
-  
+  this.auth.canAuthenticate();
  }
   formdata = {name:"",email:"",password:""};
   submit=false;
@@ -26,6 +26,7 @@ onSubmit(){
       //token response data
       this.auth.storeToken(data.idToken);
       console.log('Registered idToken is '+data.idToken)
+      this.auth.canAuthenticate();
 
     },
     error:data=>{

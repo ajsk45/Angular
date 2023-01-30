@@ -6,10 +6,15 @@ import { AuthService } from '../_services/auth.service';
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css']
 })
-export class NavbarComponent  {
+export class NavbarComponent implements OnInit  {
   
   constructor(public auth:AuthService){ }
  ngOnInit():void{
   
+ }
+ logout(){
+  //remove token
+  this.auth.removeToken();
+  this.auth.canAccess();
  }
 }
