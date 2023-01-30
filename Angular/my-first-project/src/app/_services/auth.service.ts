@@ -25,6 +25,21 @@ export class AuthService {
   } 
   register(name:string,email:string,password:string){
     //send data to register api  
-    this.htttp.post()
+    return this.htttp
+    .post<{idToken:string}>(
+      'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyDmvGCvVizdHDfYbYqDdRgZJgxmPmJN9fs',
+      {displayName:name,email,password} 
+      );
   } 
+  storeToken(token:string){
+    sessionStorage.setItem('token',token);
+  }
+  login(email:string,password:string){
+    //login api (firebase)
+    return this.htttp
+    .post<{idToken:string}>(
+      'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyDmvGCvVizdHDfYbYqDdRgZJgxmPmJN9fs',
+      {email,password}
+    );
+  }
 }

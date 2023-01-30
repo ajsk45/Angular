@@ -8,6 +8,7 @@
              class="register-form" 
              action=""
               #f="ngForm"
+              
               novalidate
               (ngSubmit)="f.form.valid&&onSubmit()"
                 >
@@ -40,7 +41,7 @@
              <div class="form-group">
   
                 <span class="text-danger" *ngIf="this.errorMessage" >
-                   <p>Custom Error Message!</p>
+                   <p>[innerText]="this.errorMessage"</p>
                 </span>
                 <div  class="text-center" *ngIf="this.loading">
                   <div class="spinner-border text-primary " role="status">

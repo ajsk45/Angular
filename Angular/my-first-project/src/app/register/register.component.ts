@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from '../_services/auth.service';
 
 @Component({
   selector: 'app-register',
@@ -6,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
- constructor() { }
+ constructor(private auth:AuthService) { }
 
  ngOnInit(): void{
   
@@ -19,5 +20,26 @@ export class RegisterComponent implements OnInit {
 onSubmit(){
   
   this.loading=true;
+  this.auth.register(this.formdata.name,this.formdata.email,this.formdata.password)
+  .subscribe({
+    next:data=>{
+      //token response data
+      this.auth.storeToken(data.idToken);
+      console.log('Registered idToken is '+data.idToken)
+
+    },
+    error:data=>{
+      if(data.error.error.messae=="INVALID_EMAIL") {
+        this.errorMessage = "Invalid Email";
+        } else if (data.error.error.messae="EMAIL_EXISS") {
+          this.errorMessage = "Already Email Exists"
+        }else {
+           this.errorMessage="Unknowen erroe occured en creating this account!"
+        } 
+    }
+  }).add(() =>{
+    this.loading=false;
+    console.log('Register completed')
+  })
 }
 }
